@@ -79,12 +79,25 @@ export default function Home() {
     }
   }, [currentWeathers]);
 
-  const handleSearchLocation = (_location) => {
+  const handleSearchLocation = () => {
     return dispatch(getCurrentWeatherByLocation(currentLocation.toLowerCase()));
   };
 
-  const handleupdateWeather = () => {
+  const handleUpdateWeather = () => {
     return dispatch(getCurrentWeather({ ...location }));
+  };
+
+  const searchLocationProps = {
+    currentLocation,
+    setCurrentLocation,
+    handleSearchLocation,
+  };
+
+  const tabMenuProps = {
+    tabs,
+    tabActive,
+    setTabActive,
+    handleUpdateWeather,
   };
 
   return (
@@ -94,20 +107,11 @@ export default function Home() {
         {Object.keys(weather).length > 0 && (
           <div className="md:w-full lg:w-[65rem] m-auto py-8 px-6 flex space-x-2 bg-white rounded-md shadow-md">
             <div className="w-4/12">
-              <SearchLocation
-                currentLocation={currentLocation}
-                setCurrentLocation={setCurrentLocation}
-                handleSearchLocation={handleSearchLocation}
-              />
+              <SearchLocation {...searchLocationProps} />
               <WeatherDisplay weather={weather} />
             </div>
             <div className="w-8/12">
-              <TabMenu
-                tabs={tabs}
-                tabActive={tabActive}
-                setTabActive={setTabActive}
-                handleUpdateWeather={handleupdateWeather}
-              />
+              <TabMenu {...tabMenuProps} />
               <div>
                 {tabActive === 'today' ? (
                   <TodayTabContent currentWeatherToday={currentWeatherToday} getTimeAMPM={getTimeAMPM} />

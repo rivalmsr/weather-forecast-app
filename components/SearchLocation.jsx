@@ -8,6 +8,9 @@ const SearchLocation = ({ currentLocation, setCurrentLocation, handleSearchLocat
         type="search"
         value={currentLocation}
         placeholder="Search city"
+        onKeyPress={(e) => {
+          return e.key === 'Enter' && handleSearchLocation();
+        }}
         onChange={(e) => setCurrentLocation(e.target.value)}
         className="w-full py-1 px-3 text-neutral-600 tracking-wider border border-neutral-400 rounded-l-md"
       />

@@ -1,24 +1,31 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { ICONS } from '../config';
 import { convertKelToCel, convertMSToKH, getObjectDate } from '../utilities';
 
 const WeatherDisplay = (props) => {
+  const [icon, setIcon] = useState('clouds');
   const { main, weather, wind, dt, sys, name } = props.weather;
   const currentDate = typeof dt === 'number' ? dt : dt.timestamp;
   const { day, month, date, time, year } = getObjectDate(currentDate);
+
+  useEffect(() => {
+    const _icon = ICONS[weather[0].main.toLowerCase()];
+    setIcon(_icon);
+  }, [weather]);
 
   return (
     <div className="w-full border-r">
       <div className="mt-10 flex item-center justify-center">
         <div className="text-right">
           <p className="mb-1 text-xs text-neutral-500 tracking-wider">{`${name} - ${sys.country}`}</p>
-          <p className=" ml:text-lg md:tracking-wide text-neutral-500 font-medium ">{`${time}, ${day} ${month} ${date} ${year}`}</p>
+          <p className="text-base ml:text-lg md:tracking-wide text-neutral-500 font-medium ">{`${time}, ${day} ${month} ${date} ${year}`}</p>
         </div>
       </div>
       <div className="md:flex">
         <div className="w-full md:w-1/2 flex items-center justify-center md:justify-end">
           <div className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40">
-            <Image width={10} height={10} layout="responsive" src="/cloudy-day-1.svg" alt="weather icon" />
+            <Image width={10} height={10} layout="responsive" src={`/${icon}.svg`} alt="weather icon" />
           </div>
         </div>
         <div className="w-full md:w-1/2 flex items-center justify-center md:justify-start text-neutral-900">

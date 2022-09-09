@@ -30,7 +30,10 @@ export const getWeatherForecastDays = createAsyncThunk(
       lon: longitude,
       appid: API_KEY,
     };
-    const response = await axios.get(`http://api.openweathermap.org/data/2.5/forecast`, { params });
+    const response = await axios.get(
+      `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/forecast`,
+      { params }
+    );
     return response.data;
   }
 );

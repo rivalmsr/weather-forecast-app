@@ -24,14 +24,17 @@ const WeatherForecastTabContent = ({ currentWeatherDays }) => {
                   isActive === name ? 'bg-primary-300 text-white' : 'text-neutral-500'
                 } group w-full h-auto py-3 px-8 mb-1 flex item-center rounded shadow transition ease-in-out hover:cursor-pointer hover:-translate-x-0.5 hover:bg-primary-300`}
               >
-                <p className="group-hover:text-white w-1/4 flex text-sm">
-                  <span className="w-10">{data[0].dt.day}</span>
-                  {data[0].dt.time}
-                </p>
+                <div className="flex items-center w-1/4">
+                  <p className={`${isActive === name ? 'text-white' : 'text-neutral-900'} w-10 group-hover:text-white`}>
+                    {data[0].dt.day}
+                  </p>
+                  <p className="group-hover:text-white ml-1 text-sm">{data[0].dt.time}</p>
+                </div>
+
                 <p
                   className={`${
                     isActive === name ? 'text-white' : 'text-neutral-900'
-                  } group-hover:text-white flex w-1/5 font-medium`}
+                  } group-hover:text-white flex w-1/5 justify-center font-medium`}
                 >
                   {convertKelToCel(data[0].main.temp)}
                   <span className="text-xs">&#8451;</span>
